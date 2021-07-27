@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import one.digitalinnovation.stocktransactionhistoryapi.enums.ActionType;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 @Data
@@ -23,11 +23,11 @@ public class TransactionDTO {
     private ActionType type;
 
     @NotEmpty
-    @Max(20)
-    private Integer quantity;
+    @Size(min = 1, max = 14)
+    private String quantity;
 
     @NotEmpty
-    @Max(20)
-    private Integer totalpaid;
+    @Size(min = 1, max = 200)
+    private String totalPaid;
 
 }

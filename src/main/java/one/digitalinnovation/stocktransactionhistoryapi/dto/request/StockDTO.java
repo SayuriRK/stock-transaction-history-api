@@ -23,12 +23,13 @@ public class StockDTO {
 
     @NotEmpty
     @Size(min = 4, max = 7)
-    private String TickerSymbol;
+    private String tickerSymbol;
 
     @NotNull
-    private LocalDate Date;
+    private LocalDate date;
 
     @Valid
     @NotEmpty
-    private List<TransactionDTO> Transaction;
+    private List<TransactionDTO> transactions;
+
 }

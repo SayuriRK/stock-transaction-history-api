@@ -2,7 +2,9 @@ package one.digitalinnovation.stocktransactionhistoryapi.controller;
 
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.request.StockDTO;
+import one.digitalinnovation.stocktransactionhistoryapi.dto.request.TransactionDTO;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.response.MessageResponseDTO;
+import one.digitalinnovation.stocktransactionhistoryapi.entity.Stock;
 import one.digitalinnovation.stocktransactionhistoryapi.exception.StockNotFoundException;
 import one.digitalinnovation.stocktransactionhistoryapi.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +31,10 @@ public class StockController {
     public StockDTO findById (@PathVariable Long id) throws StockNotFoundException{
         return stockService.findById(id);
     }
+
     @GetMapping
     public List<StockDTO> listAll(){
-    return stockService.listAll();
+        return stockService.listAll();
     }
 
     @PutMapping("/{id}")

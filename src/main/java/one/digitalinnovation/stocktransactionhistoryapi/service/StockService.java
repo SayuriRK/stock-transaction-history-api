@@ -3,6 +3,7 @@ package one.digitalinnovation.stocktransactionhistoryapi.service;
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.mapper.StockMapper;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.request.StockDTO;
+import one.digitalinnovation.stocktransactionhistoryapi.dto.request.TransactionDTO;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.response.MessageResponseDTO;
 import one.digitalinnovation.stocktransactionhistoryapi.entity.Stock;
 import one.digitalinnovation.stocktransactionhistoryapi.exception.StockNotFoundException;
@@ -26,8 +27,8 @@ public class StockService {
     }
 
     public List<StockDTO> listAll(){
-        List<Stock> stock = stockRepository.findAll();
-        return stock.stream()
+        return stockRepository.findAll()
+                .stream()
                 .map(stockMapper::toDTO)
                 .collect(Collectors.toList());
     }
@@ -35,6 +36,7 @@ public class StockService {
         Stock stock = verifyIfExists(id);
         return stockMapper.toDTO(stock);
     }
+
     public void deleteById (Long id) throws StockNotFoundException{
         verifyIfExists(id);
         stockRepository.deleteById(id);

@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
 @Entity
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,8 +22,11 @@ public class Stock {
     private Long id;
 
     @Column(nullable = false)
-    private String TickerSymbol;
+    private String tickerSymbol;
 
     @Column(nullable = false)
-    private LocalDate Date;
+    private LocalDate date;
+
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
+    private List<Transaction> transactions= new ArrayList<>();
 }

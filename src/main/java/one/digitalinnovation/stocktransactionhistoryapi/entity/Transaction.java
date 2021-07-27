@@ -24,10 +24,10 @@ public class Transaction {
     private ActionType type;
 
     @Column (nullable = false)
-    private Integer quantity;
+    private String quantity;
 
     @Column (nullable = false)
-    private Integer totalpaid;
+    private String totalPaid;
 
 }
 
