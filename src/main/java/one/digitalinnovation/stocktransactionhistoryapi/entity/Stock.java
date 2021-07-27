@@ -1,18 +1,16 @@
 package one.digitalinnovation.stocktransactionhistoryapi.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import one.digitalinnovation.stocktransactionhistoryapi.enums.ActionType;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Stock {
@@ -27,6 +25,15 @@ public class Stock {
     @Column(nullable = false)
     private LocalDate date;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-    private List<Transaction> transactions= new ArrayList<>();
+    @Column (nullable = false)
+    private int quantity;
+
+    @Column (nullable = false)
+    private String totalPaid;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ActionType type;
+
+
 }

@@ -3,7 +3,6 @@ package one.digitalinnovation.stocktransactionhistoryapi.service;
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.mapper.StockMapper;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.request.StockDTO;
-import one.digitalinnovation.stocktransactionhistoryapi.dto.request.TransactionDTO;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.response.MessageResponseDTO;
 import one.digitalinnovation.stocktransactionhistoryapi.entity.Stock;
 import one.digitalinnovation.stocktransactionhistoryapi.exception.StockNotFoundException;
@@ -18,12 +17,12 @@ import java.util.stream.Collectors;
 public class StockService {
 
     private final StockRepository stockRepository;
-    private final StockMapper stockMapper;
+    private final StockMapper stockMapper = StockMapper.INSTANCE;
 
     public MessageResponseDTO createStock (StockDTO stockDTO){
-        Stock stockToSave = stockMapper.toModel(stockDTO);
-        Stock savedStock = stockRepository.save(stockToSave);
-        return createMessageResponseDTO (savedStock.getId(), "Created stock with ID");
+        Stock stock = stockMapper.toModel(stockDTO);
+        Stock savedStock = stockRepository.save(stock);
+        return createMessageResponseDTO (savedStock.getId(), "Created stock with ID: ");
     }
 
     public List<StockDTO> listAll(){
@@ -41,14 +40,8 @@ public class StockService {
         verifyIfExists(id);
         stockRepository.deleteById(id);
     }
-    public MessageResponseDTO updateById (Long id, StockDTO stockDTO) throws StockNotFoundException{
-        verifyIfExists(id);
-        Stock stockToUpdate = stockMapper.toModel(stockDTO);
-        Stock updatedStock = stockRepository.save(stockToUpdate);
-        return createMessageResponseDTO(updatedStock.getId(), "Stock successfully updated with ID ");
-    }
 
-    private Stock verifyIfExists(Long id)  throws StockNotFoundException{
+    private Stock verifyIfExists(Long id) throws StockNotFoundException{
     return stockRepository.findById(id)
             .orElseThrow(() -> new StockNotFoundException(id));
     }

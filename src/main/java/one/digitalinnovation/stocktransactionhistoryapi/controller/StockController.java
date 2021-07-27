@@ -2,9 +2,7 @@ package one.digitalinnovation.stocktransactionhistoryapi.controller;
 
 import lombok.AllArgsConstructor;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.request.StockDTO;
-import one.digitalinnovation.stocktransactionhistoryapi.dto.request.TransactionDTO;
 import one.digitalinnovation.stocktransactionhistoryapi.dto.response.MessageResponseDTO;
-import one.digitalinnovation.stocktransactionhistoryapi.entity.Stock;
 import one.digitalinnovation.stocktransactionhistoryapi.exception.StockNotFoundException;
 import one.digitalinnovation.stocktransactionhistoryapi.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class StockController {
 
-    private StockService stockService;
+    private final StockService stockService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,15 +31,11 @@ public class StockController {
     }
 
     @GetMapping
-    public List<StockDTO> listAll(){
+    public List<StockDTO> listStocks(){
         return stockService.listAll();
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public MessageResponseDTO updateByID(@PathVariable Long id,@Valid @RequestBody StockDTO stockDTO) throws StockNotFoundException{
-        return stockService.updateById(id,stockDTO);
-    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById (@PathVariable Long id) throws StockNotFoundException{
