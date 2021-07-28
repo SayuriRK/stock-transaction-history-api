@@ -22,18 +22,18 @@ public class StockDTO {
     private Long id;
 
     @NotNull
-    @Size(min = 4, max = 7)
+    @Size(min = 5, max = 6)
     private String tickerSymbol;
 
     @NotNull
     private LocalDate date;
 
     @NotNull
-    @Max(1000)
+    @Max(10000)
     private Integer quantity;
 
     @NotNull
-    @Size(min = 1, max = 200)
+    @Size(min = 1, max = 100)
     private String totalPaid;
 
     @Enumerated(EnumType.STRING)

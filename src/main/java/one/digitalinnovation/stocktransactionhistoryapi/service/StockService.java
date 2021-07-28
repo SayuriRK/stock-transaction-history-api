@@ -19,38 +19,39 @@ public class StockService {
     private final StockRepository stockRepository;
     private final StockMapper stockMapper = StockMapper.INSTANCE;
 
-    public MessageResponseDTO createStock (StockDTO stockDTO){
+    public MessageResponseDTO createStock(StockDTO stockDTO) {
         Stock stock = stockMapper.toModel(stockDTO);
         Stock savedStock = stockRepository.save(stock);
-        return createMessageResponseDTO (savedStock.getId(), "Created stock with ID: ");
+        return createMessageResponseDTO(savedStock.getId(), "Created stock with ID: ");
     }
 
-    public List<StockDTO> listAll(){
+    public List<StockDTO> listAll() {
         return stockRepository.findAll()
                 .stream()
                 .map(stockMapper::toDTO)
                 .collect(Collectors.toList());
     }
-    public StockDTO findById (Long id) throws StockNotFoundException{
+
+    public StockDTO findById(Long id) throws StockNotFoundException {
         Stock stock = verifyIfExists(id);
         return stockMapper.toDTO(stock);
     }
 
-    public void deleteById (Long id) throws StockNotFoundException{
+    public void deleteById(Long id) throws StockNotFoundException {
         verifyIfExists(id);
         stockRepository.deleteById(id);
     }
 
-    private Stock verifyIfExists(Long id) throws StockNotFoundException{
-    return stockRepository.findById(id)
-            .orElseThrow(() -> new StockNotFoundException(id));
+    private Stock verifyIfExists(Long id) throws StockNotFoundException {
+        return stockRepository.findById(id)
+                .orElseThrow(() -> new StockNotFoundException(id));
     }
 
     private MessageResponseDTO createMessageResponseDTO(Long id, String message) {
-    return MessageResponseDTO
-            .builder()
-            .message(message + id)
-            .build();
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
     }
 
 }

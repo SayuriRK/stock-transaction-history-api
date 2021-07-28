@@ -24,6 +24,7 @@ public class StockController {
     public MessageResponseDTO createStock (@Valid @RequestBody StockDTO stockDTO) {
         return stockService.createStock(stockDTO);
     }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public StockDTO findById (@PathVariable Long id) throws StockNotFoundException{
@@ -34,7 +35,6 @@ public class StockController {
     public List<StockDTO> listStocks(){
         return stockService.listAll();
     }
-
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
